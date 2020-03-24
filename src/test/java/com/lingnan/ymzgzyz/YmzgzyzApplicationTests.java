@@ -1,21 +1,33 @@
 package com.lingnan.ymzgzyz;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 
-import javax.sql.DataSource;
-import java.sql.SQLException;
+import com.lingnan.ymzgzyz.model.entity.Admin;
+import com.lingnan.ymzgzyz.service.IAdminService;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
 @SpringBootTest
-class YmzgzyzApplicationTests {
+@RunWith(SpringRunner.class)
+public class YmzgzyzApplicationTests {
 
     @Autowired
-    DataSource dataSource;
+    private IAdminService adminService;
+
     @Test
-    void contextLoads ( ) throws SQLException {
-        System.out.println(dataSource.getConnection());
-        System.out.println(dataSource.getClass());
+    public void contextLoads ( ) {
+    }
+
+    /**
+     * 测试数据库连接
+     */
+    @Test
+    public void testConnectionDataSource(){
+        Admin admin = adminService.getById(1);
+        System.out.println(admin);
     }
 
 }
