@@ -42,7 +42,13 @@ public class Volunteer implements Serializable {
     /**
      * 密码
      */
-    private String pwd;
+    private String password;
+
+
+    /**
+     * 私盐
+     */
+    private String salt;
 
     /**
      * 头像

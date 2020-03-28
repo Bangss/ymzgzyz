@@ -41,6 +41,12 @@ public class Child implements Serializable {
      */
     private String password;
 
+
+    /**
+     * 私盐
+     */
+    private String salt;
+
     /**
      * 头像
      */
