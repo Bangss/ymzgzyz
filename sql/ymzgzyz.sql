@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 80016
 File Encoding         : 65001
 
-Date: 2020-03-21 19:45:49
+Date: 2020-03-28 21:34:51
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -77,11 +77,12 @@ CREATE TABLE `admin` (
   `mobile` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '管理员电话\n',
   `avatar` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '头像',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of admin
 -- ----------------------------
+INSERT INTO `admin` VALUES ('1', '1', 'admin', '123456', '10010', 'http://xxx.xxx.jpg');
 
 -- ----------------------------
 -- Table structure for article_inf
@@ -131,7 +132,8 @@ DROP TABLE IF EXISTS `child`;
 CREATE TABLE `child` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '用户名\n',
-  `password` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '密码\n',
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '密码\n',
+  `salt` varchar(255) DEFAULT NULL COMMENT '私盐',
   `image` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '头像\n',
   `real_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '真实姓名\n',
   `mobile` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '电话号码\n',
@@ -150,11 +152,12 @@ CREATE TABLE `child` (
   `parent_name2` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '监护人2姓名（非必填）\n',
   `parent_tel2` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '监护人2电话（非必填）\n',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of child
 -- ----------------------------
+INSERT INTO `child` VALUES ('1', '10010', 'a23c64a3da4a79dec5c22276e393e9cb', 'bf1e459bfd44427b863cbf00b8a2db95', 'xxx', '张三', '13211144888', '13211144888', 'zhangshan@123.com', 'xxx', 'xxx', '2020-03-28', '1', '2020-03-28 19:26:11', '2020-03-28 19:26:11', '13211144888', '张思', '神罗天正', '13211144888', null, null);
 
 -- ----------------------------
 -- Table structure for volunteer
@@ -163,7 +166,8 @@ DROP TABLE IF EXISTS `volunteer`;
 CREATE TABLE `volunteer` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '志愿者编号',
   `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '用户名',
-  `pwd` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '密码',
+  `salt` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '私盐',
+  `password` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '密码',
   `avatar` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '头像\n',
   `real_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '真实姓名\n',
   `mobile` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '电话号码\n',
@@ -180,8 +184,9 @@ CREATE TABLE `volunteer` (
   `publish_power` int(11) NOT NULL COMMENT '志愿者发布推文权限:\r\n\n0没有权限\n;\r\n1有权限\n',
   `view_power` int(11) NOT NULL COMMENT '志愿者发布教学资源权限\n:\r\n0没有权限;\r\n\n1有权限\n',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of volunteer
 -- ----------------------------
+INSERT INTO `volunteer` VALUES ('1', '90010', 'bf1e459bfd44427b863cbf00b8a2db95', 'a23c64a3da4a79dec5c22276e393e9cb', 'xxx', '李四', '1324448881', '1324448881', '1324448881@qq.com', '圣地亚哥大学', '神帝阿哥', 'xxx', '2020-03-28', '2020-03-28 21:09:03', '2020-03-28 21:09:05', '2312397423214', '圣地亚哥大学艺术学院', '1', '1');
