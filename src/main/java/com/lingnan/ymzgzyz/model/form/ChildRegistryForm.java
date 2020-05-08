@@ -1,36 +1,18 @@
-package com.lingnan.ymzgzyz.model.entity;
-
-import com.baomidou.mybatisplus.annotation.IdType;
-
-import java.time.LocalDate;
-
-import com.baomidou.mybatisplus.annotation.TableId;
-
-import java.time.LocalDateTime;
-import java.io.Serializable;
+package com.lingnan.ymzgzyz.model.form;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
- * <p>
- * 儿童
- * </p>
- *
- * @author PonKing
- * @since 2020-03-21
- */
+ * @author Ponking
+ * @ClassName ChildRegistryForm
+ * @date 2020/3/28--21:30
+ * @Des 儿童注册表单
+ **/
 @Data
-@EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
-public class Child implements Serializable {
-
-    private static final long serialVersionUID = 1L;
-
-    @TableId(value = "id", type = IdType.AUTO)
-    private Integer id;
-
+public class ChildRegistryForm {
     /**
      * 用户名
      */
@@ -40,12 +22,6 @@ public class Child implements Serializable {
      * 密码
      */
     private String password;
-
-
-    /**
-     * 私盐
-     */
-    private String salt;
 
     /**
      * 头像
@@ -93,16 +69,6 @@ public class Child implements Serializable {
     private String level;
 
     /**
-     * 注册时间(自动读取系统时间)
-     */
-    private LocalDateTime createTime;
-
-    /**
-     * 上次登录时间(自动读取系统时间)
-     */
-    private LocalDateTime lastTime;
-
-    /**
      * 监护人电话,多个用，隔开
      */
     private String parentPhone;
@@ -131,6 +97,4 @@ public class Child implements Serializable {
      * 监护人2电话（非必填）
      */
     private String parentTel2;
-
-
 }
