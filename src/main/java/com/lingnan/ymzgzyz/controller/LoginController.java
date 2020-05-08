@@ -1,31 +1,43 @@
 package com.lingnan.ymzgzyz.controller;
 
-import com.lingnan.ymzgzyz.pojo.Login;
-import com.lingnan.ymzgzyz.service.LoginService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.lingnan.ymzgzyz.model.R;
+import com.lingnan.ymzgzyz.model.form.LoginForm;
+import com.lingnan.ymzgzyz.shiro.LoginToken;
+import com.lingnan.ymzgzyz.shiro.LoginType;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
+/**
+ * @author Ponking
+ * @ClassName LoginController
+ * @date 2020/3/28--20:00
+ **/
 @RestController
-@RequestMapping("/login")
+@RequestMapping
 public class LoginController {
-    @Autowired
-    private LoginService loginService;
 
-    @RequestMapping("/getAll")
-    public String getAll()
-    {
-        List<Login> l = new ArrayList<Login>();
-        l = loginService.getAll();
-        for (Login x: l
-             ) {
-            System.out.println(x);
-        }
-        return loginService.toString();
+    @PostMapping("/student/login")
+    public R studentLogin(@RequestBody LoginForm form){
+        LoginToken token =
+                new LoginToken(form.getUsername(),form.getPassword(), LoginType.getChild());
+        Subject subject = SecurityUtils.getSubject();
+        subject.login(token);
+        return R.message("登录成功");
     }
 
+    @PostMapping("/volunteer/login")
+    public R volunteerLogin(@RequestBody LoginForm form){
+        LoginToken token =
+                new LoginToken(form.getUsername(),form.getPassword(), LoginType.getVolunteer());
+        Subject subject = SecurityUtils.getSubject();
+        subject.login(token);
+        return R.message("登录成功");
+    }
+
+    @GetMapping("/test")
+    public R test(){
+        return R.success("test");
+    }
 }
