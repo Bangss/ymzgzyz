@@ -3,5 +3,24 @@ spring:
     druid:
       driver-class-name: com.mysql.cj.jdbc.Driver
       username: root
-      password: root
-      url: jdbc:mysql://localhost:3306/ymzgzyz?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC&useSSL=false
+      password: 241735
+      url: jdbc:mysql://localhost:3306/ymzgzyz?useUnicode=true&characterEncoding=utf-8&=UTC&useSSL=falseserverTimezone
+      #     最大连接数
+      max-active: 30
+      #      最小连接数
+      min-idle: 1
+      #      获取最大的链接等待时间
+      max-wait: 10000
+      #      解决mysql8小时的问题，验证时候正常
+      validation-query: SELECT 'x'
+      #      空闲连接检查间隔
+      time-between-eviction-runs-millis: 60000
+      #      空闲连接最小空闲时间
+      min-evictable-idle-time-millis: 300000
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      filters: stat,wall,log4j
+      filter:
+        stat:
+          log-slow-sql: true

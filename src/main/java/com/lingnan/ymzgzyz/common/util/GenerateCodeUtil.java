@@ -45,7 +45,7 @@ public class GenerateCodeUtil {
         GlobalConfig gc = new GlobalConfig();
         String projectPath = System.getProperty("user.dir");
         gc.setOutputDir(projectPath + "/src/main/java");
-        gc.setAuthor("PonKing");
+        gc.setAuthor("Bangss");
         gc.setOpen(false);
         // 自定义文件命名，注意 %s 会自动填充表实体属性！
         // gc.setMapperName("%sDao");
@@ -62,7 +62,7 @@ public class GenerateCodeUtil {
         // dsc.setSchemaName("public");
         dsc.setDriverName("com.mysql.cj.jdbc.Driver");
         dsc.setUsername("root");
-        dsc.setPassword("root");
+        dsc.setPassword("241735");
         mpg.setDataSource(dsc);
 
         // 包配置
