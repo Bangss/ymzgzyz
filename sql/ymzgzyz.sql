@@ -2,12 +2,12 @@
 Navicat MySQL Data Transfer
 
 Source Server         : DESKTOP-RD3SK04_MYSQL
-Source Server Version : 80016
+Source Server Version : 80019
 Source Host           : localhost:3306
 Source Database       : ymzgzyz
 
 Target Server Type    : MYSQL
-Target Server Version : 80016
+Target Server Version : 80019
 File Encoding         : 65001
 
 Date: 2020-03-28 21:34:51
@@ -38,6 +38,7 @@ CREATE TABLE `active_inf` (
   `title` char(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '活动标题限制为20字\n',
   `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '活动内容',
   `people_num` int(11) DEFAULT NULL COMMENT '报名人数上限\n',
+  `flag` int(11) DEFAULT 0 COMMENT '软删状态位，1为被逻辑删除，0为未被软删除',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='活动信息';
 
@@ -58,6 +59,7 @@ CREATE TABLE `active_sign` (
   `wechat` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '微信',
   `email` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '邮件',
   `time` date NOT NULL COMMENT '报名时间',
+  `flag` int(11) DEFAULT 0 COMMENT '软删状态位，1为被逻辑删除，0为未被软删除',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -76,13 +78,14 @@ CREATE TABLE `admin` (
   `password` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '密码',
   `mobile` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '管理员电话\n',
   `avatar` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '头像',
+  `flag` int(11) DEFAULT 0 COMMENT '软删状态位，1为被逻辑删除，0为未被软删除',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of admin
 -- ----------------------------
-INSERT INTO `admin` VALUES ('1', '1', 'admin', '123456', '10010', 'http://xxx.xxx.jpg');
+INSERT INTO `admin` VALUES ('1', '1', 'admin', '123456', '10010', 'http://xxx.xxx.jpg','0');
 
 -- ----------------------------
 -- Table structure for article_inf
@@ -99,6 +102,7 @@ CREATE TABLE `article_inf` (
   `image` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '推文图片\n',
   `title` char(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '推文标题限制为20字\n',
   `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '推文内容\n',
+  `flag` int(11) DEFAULT 0 COMMENT '软删状态位，1为被逻辑删除，0为未被软删除',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='推文信息表';
 
@@ -116,6 +120,7 @@ CREATE TABLE `article_read` (
   `user_id` int(11) NOT NULL COMMENT '查阅者id\n',
   `user_role` int(11) NOT NULL COMMENT '查阅者身份\n0志愿者\n1儿童\n2管理员\n',
   `read_time` timestamp NOT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '查阅时间\n',
+  `flag` int(11) DEFAULT 0 COMMENT '软删状态位，1为被逻辑删除，0为未被软删除',
   PRIMARY KEY (`id`),
   KEY `article_read_article_inf_article_id_fk` (`id`),
   CONSTRAINT `article_read_article_inf_article_id_fk` FOREIGN KEY (`id`) REFERENCES `article_inf` (`id`)
@@ -151,13 +156,14 @@ CREATE TABLE `child` (
   `parent_tel1` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '监护人1电话（必填）\n',
   `parent_name2` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '监护人2姓名（非必填）\n',
   `parent_tel2` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '监护人2电话（非必填）\n',
+  `flag` int(11) DEFAULT 0 COMMENT '软删状态位，1为被逻辑删除，0为未被软删除',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of child
 -- ----------------------------
-INSERT INTO `child` VALUES ('1', '10010', 'a23c64a3da4a79dec5c22276e393e9cb', 'bf1e459bfd44427b863cbf00b8a2db95', 'xxx', '张三', '13211144888', '13211144888', 'zhangshan@123.com', 'xxx', 'xxx', '2020-03-28', '1', '2020-03-28 19:26:11', '2020-03-28 19:26:11', '13211144888', '张思', '神罗天正', '13211144888', null, null);
+INSERT INTO `child` VALUES ('1', '10010', 'a23c64a3da4a79dec5c22276e393e9cb', 'bf1e459bfd44427b863cbf00b8a2db95', 'xxx', '张三', '13211144888', '13211144888', 'zhangshan@123.com', 'xxx', 'xxx', '2020-03-28', '1', '2020-03-28 19:26:11', '2020-03-28 19:26:11', '13211144888', '张思', '神罗天正', '13211144888', null, null,'0');
 
 -- ----------------------------
 -- Table structure for volunteer
@@ -183,10 +189,11 @@ CREATE TABLE `volunteer` (
   `organization` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '归属组织\n',
   `publish_power` int(11) NOT NULL COMMENT '志愿者发布推文权限:\r\n\n0没有权限\n;\r\n1有权限\n',
   `view_power` int(11) NOT NULL COMMENT '志愿者发布教学资源权限\n:\r\n0没有权限;\r\n\n1有权限\n',
+  `flag` int(11) DEFAULT 0 COMMENT '软删状态位，1为被逻辑删除，0为未被软删除',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of volunteer
 -- ----------------------------
-INSERT INTO `volunteer` VALUES ('1', '90010', 'bf1e459bfd44427b863cbf00b8a2db95', 'a23c64a3da4a79dec5c22276e393e9cb', 'xxx', '李四', '1324448881', '1324448881', '1324448881@qq.com', '圣地亚哥大学', '神帝阿哥', 'xxx', '2020-03-28', '2020-03-28 21:09:03', '2020-03-28 21:09:05', '2312397423214', '圣地亚哥大学艺术学院', '1', '1');
+INSERT INTO `volunteer` VALUES ('1', '90010', 'bf1e459bfd44427b863cbf00b8a2db95', 'a23c64a3da4a79dec5c22276e393e9cb', 'xxx', '李四', '1324448881', '1324448881', '1324448881@qq.com', '圣地亚哥大学', '神帝阿哥', 'xxx', '2020-03-28', '2020-03-28 21:09:03', '2020-03-28 21:09:05', '2312397423214', '圣地亚哥大学艺术学院', '1', '1','0');
