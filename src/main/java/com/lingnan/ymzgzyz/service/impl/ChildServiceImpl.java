@@ -4,6 +4,7 @@ import com.lingnan.ymzgzyz.model.entity.Child;
 import com.lingnan.ymzgzyz.mapper.ChildMapper;
 import com.lingnan.ymzgzyz.service.IChildService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -17,4 +18,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class ChildServiceImpl extends ServiceImpl<ChildMapper, Child> implements IChildService {
 
+    @Autowired
+    private ChildMapper childMapper;
+
+    @Override
+    public Child getByName ( String name ) {
+        return childMapper.getByName(name);
+    }
 }

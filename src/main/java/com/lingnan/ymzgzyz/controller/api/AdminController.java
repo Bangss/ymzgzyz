@@ -4,11 +4,7 @@ package com.lingnan.ymzgzyz.controller.api;
 import com.lingnan.ymzgzyz.model.entity.Admin;
 import com.lingnan.ymzgzyz.service.IAdminService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,10 +32,15 @@ public class AdminController {
     }
 
     //根据id查询，返回Admin对象
-    @PostMapping("/get-one")
+    @PostMapping("/get-one-id")
     public Admin getAdminById( @RequestBody Admin admin ) {
         Integer id = admin.getId();
         return iAdminService.getById(id);
+    }
+
+    @PostMapping("/get-list-role")
+    public List<Admin> getAdminByRole( @RequestParam Integer role ) {
+        return iAdminService.getByRole(role);
     }
 
     //更新，返回boolean值

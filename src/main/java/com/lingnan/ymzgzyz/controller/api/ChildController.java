@@ -1,6 +1,7 @@
 package com.lingnan.ymzgzyz.controller.api;
 
 
+import com.lingnan.ymzgzyz.model.R;
 import com.lingnan.ymzgzyz.model.entity.Child;
 import com.lingnan.ymzgzyz.service.IChildService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,9 @@ public class ChildController {
 
     @Autowired
     IChildService iChildService;
+
+
+
 
     //查询全部，返回list
     @PostMapping("/list")

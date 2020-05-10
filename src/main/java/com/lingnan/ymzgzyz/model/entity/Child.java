@@ -1,10 +1,16 @@
 package com.lingnan.ymzgzyz.model.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+
+import java.sql.Date;
+import java.sql.Time;
 import java.time.LocalDate;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.time.LocalDateTime;
 import java.io.Serializable;
+import java.util.Set;
+
+import com.lingnan.ymzgzyz.model.Role;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -90,7 +96,7 @@ public class Child implements Serializable {
      * 出生日期
 
      */
-    private LocalDate born;
+    private Date born;
 
     /**
      * 学习阶段
@@ -102,13 +108,13 @@ public class Child implements Serializable {
      * 注册时间(自动读取系统时间)
 
      */
-    private LocalDateTime createTime;
+    private Time createTime;
 
     /**
      * 上次登录时间(自动读取系统时间)
 
      */
-    private LocalDateTime lastTime;
+    private Time lastTime;
 
     /**
      * 监护人电话,多个用，隔开
@@ -149,5 +155,5 @@ public class Child implements Serializable {
      */
     private Integer flag;
 
-
+    private Set<Role> roles;
 }

@@ -1,6 +1,9 @@
 package com.lingnan.ymzgzyz.model.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+
+import java.sql.Date;
+import java.sql.Time;
 import java.time.LocalDate;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.time.LocalDateTime;
@@ -97,18 +100,18 @@ public class Volunteer implements Serializable {
      * 出生日期
 
      */
-    private LocalDate born;
+    private Date born;
 
     /**
      * 注册时间
 
      */
-    private LocalDateTime createTime;
+    private Time createTime;
 
     /**
      * 上次登录时间
      */
-    private LocalDateTime lastTime;
+    private Time lastTime;
 
     /**
      * 志愿者证
