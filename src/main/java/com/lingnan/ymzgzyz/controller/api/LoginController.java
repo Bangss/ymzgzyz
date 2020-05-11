@@ -8,11 +8,13 @@ import com.lingnan.ymzgzyz.model.entity.Volunteer;
 import com.lingnan.ymzgzyz.service.IAdminService;
 import com.lingnan.ymzgzyz.service.IChildService;
 import com.lingnan.ymzgzyz.service.IVolunteerService;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/ymzgzyz")
+@RequestMapping("/ymzgzyz/login")
 public class LoginController {
 
     @Autowired
@@ -26,111 +28,86 @@ public class LoginController {
      */
 
     //child
-    //id登录
-    @PostMapping("/child/loginById")
-    public R childLoginById( @RequestParam String id , @RequestParam String password) {
-        Child flag  = iChildService.getById(id);
-        if (flag != null) {
-            if (flag.getPassword().equals(password)) {
-                return R.success(flag);
+    @PostMapping("/child")
+    public R childLogin( @RequestParam String id , @RequestParam String  name , @RequestParam String password) {
+        Child childById = iChildService.getById(id);
+        if (childById != null) {
+//            System.out.println("childById: " + childById);
+            if (childById.getPassword().equals(password)) {
+                return R.success(childById);
             }
             else {
-                return R.failed();
+                return R.message("密码错误");
             }
         }
-        else
-        {
-            return R.failed();
-        }
-    }
-
-    //用户名登录
-    @PostMapping("/child/loginByName")
-    public R childLoginByName( @RequestParam String name , @RequestParam String password) {
-        Child flag  = iChildService.getByName(name);
-        if (flag != null) {
-            if (flag.getPassword().equals(password)) {
-                return R.success(flag);
+        else {
+            Child childByName = iChildService.getByName(name);
+//            System.out.println("childById: " + childByName);
+            if (childByName != null) {
+                if (childByName.getPassword().equals(password)) {
+                    return R.success(childByName);
+                } else {
+                    return R.message("密码错误");
+                }
             }
             else {
-                return R.failed();
+                return R.message("不存在该用户");
             }
-        }
-        else
-        {
-            return R.failed();
         }
     }
 
     //volunteer
-    @PostMapping("/volunteer/loginById")
-    public R volunteerLoginById( @RequestParam String id , @RequestParam String password) {
-        Volunteer flag  = iVolunteerService.getById(id);
-        if (flag != null) {
-            if (flag.getPassword().equals(password)) {
-                return R.success(flag);
+    @PostMapping("/volunteer")
+    public R volunteerLogin( @RequestParam String id , @RequestParam String name , @RequestParam String password) {
+        Volunteer volById = iVolunteerService.getById(id);
+        if (volById != null) {
+            if (volById.getPassword().equals(password)) {
+                return R.success(volById);
             }
             else {
-                return R.failed();
+                return R.message("密码错误");
             }
         }
-        else
-        {
-            return R.failed();
-        }
-    }
-
-    @PostMapping("/volunteer/loginByName")
-    public R volunteerLoginByName( @RequestParam String name , @RequestParam String password) {
-        Volunteer flag  = iVolunteerService.getByName(name);
-        if (flag != null) {
-            if (flag.getPassword().equals(password)) {
-                return R.success(flag);
+        else {
+            Volunteer volByName = iVolunteerService.getByName(name);
+            if (volByName != null) {
+                if (volByName.getPassword().equals(password)) {
+                    return R.success(volByName);
+                } else {
+                    return R.message("密码错误");
+                }
             }
             else {
-                return R.failed();
+                return R.message("不存在该用户");
             }
-        }
-        else
-        {
-            return R.failed();
         }
     }
 
     //admin
-    @PostMapping("/admin/loginById")
-    public R adminLoginById( @RequestParam String id , @RequestParam String password) {
-        Admin flag  = iAdminService.getById(id);
-        if (flag != null) {
-            if (flag.getPassword().equals(password)) {
-                return R.success(flag);
+    @PostMapping("/admin")
+    public R adminLogin( @RequestParam String id , @RequestParam String name , @RequestParam String password) {
+        Admin adminById  = iAdminService.getById(id);
+        if (adminById != null) {
+            if (adminById.getPassword().equals(password)) {
+                return R.success(adminById);
             }
             else {
-                return R.failed();
+                return R.message("密码错误");
             }
         }
-        else
-        {
-            return R.failed();
-        }
-    }
-
-    @PostMapping("/admin/loginByName")
-    public R adminLoginByName( @RequestParam String name , @RequestParam String password) {
-        Admin flag  = iAdminService.getByName(name);
-        if (flag != null) {
-            if (flag.getPassword().equals(password)) {
-                return R.success(flag);
+        else {
+            Admin adminByName = iAdminService.getByName(name);
+            if (adminByName != null) {
+                if (adminByName.getPassword().equals(password)) {
+                    return R.success(adminByName);
+                } else {
+                    return R.message("密码错误");
+                }
             }
             else {
-                return R.failed();
+                return R.message("不存在该用户");
             }
         }
-        else
-        {
-            return R.failed();
-        }
     }
-
 
 }

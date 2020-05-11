@@ -31,6 +31,8 @@ public enum ResultCode implements IResultCode {
     ;
 
 
+
+
     /**
      * 返回码
      */
@@ -46,4 +48,7 @@ public enum ResultCode implements IResultCode {
         this.message = message;
     }
 
+    ResultCode(String message) {
+        this.message = message;
+    }
 }

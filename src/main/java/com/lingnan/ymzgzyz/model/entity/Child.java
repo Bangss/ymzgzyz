@@ -155,5 +155,4 @@ public class Child implements Serializable {
      */
     private Integer flag;
 
-    private Set<Role> roles;
 }
