@@ -2,8 +2,7 @@ package com.lingnan.ymzgzyz.model.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 
-import java.sql.Date;
-import java.time.LocalDate;
+import java.util.Date;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
 import lombok.Data;

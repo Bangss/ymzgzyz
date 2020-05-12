@@ -1,10 +1,14 @@
 package com.lingnan.ymzgzyz.service;
 
-import com.lingnan.ymzgzyz.mapper.ChildMapper;
+
 import com.lingnan.ymzgzyz.model.entity.Child;
 import com.baomidou.mybatisplus.extension.service.IService;
-import org.apache.ibatis.annotations.Select;
-import org.springframework.beans.factory.annotation.Autowired;
+
+
+
+
+import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -15,6 +19,14 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @since 2020-05-09
  */
 public interface IChildService extends IService<Child> {
-    @Select("select * from child where name = ${name}")
+
     Child getByName (String name);
+
+    List<Child> getByLevel ( String level);
+
+    List<Child> getByBorn ( String born );
+
+    List<Child> getByPlace (String place);
+
+    List<Child> getByAddress (String address);
 }

@@ -1,7 +1,7 @@
 package com.lingnan.ymzgzyz.controller.api;
 
 
-import com.lingnan.ymzgzyz.model.R;
+
 import com.lingnan.ymzgzyz.model.entity.Child;
 import com.lingnan.ymzgzyz.service.IChildService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,9 +29,6 @@ public class ChildController {
     @Autowired
     IChildService iChildService;
 
-
-
-
     //查询全部，返回list
     @PostMapping("/list")
     public List<Child> getChildInfList () {
@@ -41,7 +38,7 @@ public class ChildController {
     }
 
     //根据id查询，返回Child对象
-    @PostMapping("/get-one")
+    @PostMapping("/getOneById")
     public Child getChildById ( @RequestBody Child child) {
         Integer id = child.getId();
         return iChildService.getById(id);
@@ -65,4 +62,33 @@ public class ChildController {
         Integer id = child.getId();
         return iChildService.removeById(id);
     }
+
+    /**
+     * 其他条件查询
+     */
+
+    //level
+    @PostMapping("getByLevel")
+    public List<Child> getByLevel (@RequestBody Child child) {
+        return iChildService.getByLevel(child.getLevel());
+    }
+
+    //born
+    @PostMapping("getByBorn")
+    public List<Child> getByBorn (String born) {
+        return iChildService.getByBorn(born);
+    }
+
+    //place 模糊查询
+    @PostMapping("/getByPlace")
+    public List<Child> getByPlace (@RequestBody Child child) {
+        return iChildService.getByPlace(child.getPlace());
+    }
+
+    //address 模糊查询
+    @PostMapping("/getByAddress")
+    public List<Child> getByAddress (@RequestBody Child child) {
+        return iChildService.getByAddress(child.getAddress());
+    }
+
 }

@@ -15,6 +15,5 @@ import org.apache.ibatis.annotations.Select;
  */
 
 public interface ChildMapper extends BaseMapper<Child> {
-    @Select("select * from child where name = ${name}")
-    Child getByName (String name);
+
 }

@@ -2,15 +2,11 @@ package com.lingnan.ymzgzyz.model.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 
-import java.sql.Date;
+import java.util.Date;
 import java.sql.Time;
-import java.time.LocalDate;
 import com.baomidou.mybatisplus.annotation.TableId;
-import java.time.LocalDateTime;
 import java.io.Serializable;
-import java.util.Set;
 
-import com.lingnan.ymzgzyz.model.Role;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;

@@ -17,7 +17,6 @@ import java.util.Scanner;
 /**
  * @author Bangss
  * @ClassName GenerateCodeUtil
- * @date 2020/3/14--21:31
  * @Des 代码生成器
  **/
 public class GenerateCodeUtil {

@@ -1,6 +1,7 @@
 package com.lingnan.ymzgzyz.controller.api;
 
 
+import com.lingnan.ymzgzyz.model.entity.ActiveInf;
 import com.lingnan.ymzgzyz.model.entity.ActiveSign;
 import com.lingnan.ymzgzyz.service.IActiveSignService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,5 +60,27 @@ public class ActiveSignController {
     public boolean deleteActiveSign(@RequestBody ActiveSign activeSign) {
         Integer id = activeSign.getId();
         return iActiveSignService.removeById(id);
+    }
+
+    /**
+     * 其他条件查询
+     */
+
+    // activeId
+    @PostMapping("/getByActiveId")
+    public List<ActiveSign> getByActiveId ( @RequestBody ActiveSign activeSign ) {
+        return iActiveSignService.getByActiveId(activeSign.getActiveId());
+    }
+
+    //vId
+    @PostMapping("/getByVId")
+    public List<ActiveSign> getByVId (@RequestBody ActiveSign activeSign) {
+        return iActiveSignService.getByVId(activeSign.getVId());
+    }
+
+    //time
+    @PostMapping("/getByTime")
+    public List<ActiveSign> getByTime (String time) {
+        return iActiveSignService.getByTime(time);
     }
 }

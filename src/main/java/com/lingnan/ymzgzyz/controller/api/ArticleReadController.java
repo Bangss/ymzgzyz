@@ -62,4 +62,34 @@ public class ArticleReadController {
         Integer id = articleRead.getId();
         return iArticleReadService.removeById(id);
     }
+
+    /**
+     * 其他条件查询
+     */
+
+    // articleId
+    @PostMapping("/getByArticleId")
+    public List<ArticleRead> getByArticleId (@RequestBody ArticleRead articleRead) {
+        return iArticleReadService.getByArticleId(articleRead.getArticleId());
+    }
+
+    //userId
+    @PostMapping("/getByUserId")
+    public List<ArticleRead> getByUserId (@RequestBody ArticleRead articleRead) {
+        return iArticleReadService.getByUserId(articleRead.getUserId());
+    }
+
+    //userRole
+    @PostMapping("/getByUserRole")
+    public List<ArticleRead> getByUserRole (@RequestBody ArticleRead articleRead) {
+        return iArticleReadService.getByUserRole(articleRead.getUserRole());
+    }
+
+
+    //readTime
+    @PostMapping("/getByReadTime")
+    public List<ArticleRead> getByReadTime (String time) {
+        return iArticleReadService.getByReadTime(time);
+    }
+
 }

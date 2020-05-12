@@ -61,4 +61,56 @@ public class VolunteerController {
         Integer id = volunteer.getId();
         return iVolunteerService.removeById(id);
     }
+
+    /**
+     * 其他条件查询
+     */
+
+    //born
+    @PostMapping("/getByBorn")
+    public List<Volunteer> getByBorn (String born) {
+        return iVolunteerService.getByBorn(born);
+    }
+
+    //card
+    @PostMapping("/getByCard")
+    public Volunteer getVolByCard (@RequestBody Volunteer volunteer) {
+        return iVolunteerService.getByCard(volunteer.getAvatar());
+    }
+
+    //school 模糊查询
+    @PostMapping("/getBySchool")
+    public List<Volunteer> getBySchool (@RequestBody Volunteer volunteer) {
+        return iVolunteerService.getBySchool(volunteer.getSchool());
+    }
+
+    //address 模糊查询
+    @PostMapping("/getByAddress")
+    public List<Volunteer> getByAddress (@RequestBody Volunteer volunteer) {
+        return iVolunteerService.getByAddress(volunteer.getAddress());
+    }
+
+    //place 模糊查询
+    @PostMapping("/getByPlace")
+    public List<Volunteer> getByPlace (@RequestBody Volunteer volunteer) {
+        return iVolunteerService.getByPlace(volunteer.getPlace());
+    }
+
+    //organization
+    @PostMapping("/getByOrg")
+    public List<Volunteer> getByOrg (@RequestBody Volunteer volunteer) {
+        return iVolunteerService.getByOrg(volunteer.getOrganization());
+    }
+
+    //publish_power
+    @PostMapping("/getByPP")
+    public List<Volunteer> getByPP (@RequestBody Volunteer volunteer) {
+        return iVolunteerService.getByPP(volunteer.getPublishPower());
+    }
+
+    //view_power
+    @PostMapping("/getByVP")
+    public List<Volunteer> getByVP (@RequestBody Volunteer volunteer) {
+        return iVolunteerService.getByVP(volunteer.getViewPower());
+    }
 }

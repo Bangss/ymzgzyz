@@ -2,8 +2,12 @@ package com.lingnan.ymzgzyz.model.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.io.Serializable;
+import java.util.Date;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -67,13 +71,13 @@ public class ArticleInf implements Serializable {
     /**
      * 推文发布时间
      */
-    private LocalDateTime startTime;
+    private Date startTime;
 
     /**
      * 活动结束报名时间，管理员或活动发布者可编辑
 
      */
-    private LocalDateTime endTime;
+    private Date endTime;
 
     /**
      * 推文图片

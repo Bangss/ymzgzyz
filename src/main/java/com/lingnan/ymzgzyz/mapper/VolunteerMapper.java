@@ -13,6 +13,5 @@ import org.apache.ibatis.annotations.Select;
  * @since 2020-05-09
  */
 public interface VolunteerMapper extends BaseMapper<Volunteer> {
-    @Select("select * from volunteer where name = ${name}")
-    Volunteer getByName(String name);
+
 }

@@ -2,6 +2,10 @@ package com.lingnan.ymzgzyz.mapper;
 
 import com.lingnan.ymzgzyz.model.entity.ArticleInf;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Select;
+
+import java.util.Date;
+import java.util.List;
 
 /**
  * <p>

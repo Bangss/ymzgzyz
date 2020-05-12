@@ -1,6 +1,5 @@
 package com.lingnan.ymzgzyz.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.lingnan.ymzgzyz.model.entity.Admin;
 import com.lingnan.ymzgzyz.mapper.AdminMapper;
@@ -22,17 +21,21 @@ import java.util.List;
 @Service
 public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements IAdminService {
 
-    @Autowired
-    private AdminMapper adminMapper;
+
 
     @Override
     public Admin getByName ( String name ) {
-        return adminMapper.getByName(name);
+        return baseMapper.selectOne(Wrappers.<Admin>lambdaQuery().eq(Admin::getName,name));
+    }
+
+    @Override
+    public Admin getByMobile ( String mobile ) {
+       return baseMapper.selectOne(Wrappers.<Admin>lambdaQuery().eq(Admin::getMobile,mobile));
     }
 
     @Override
     public List<Admin> getByRole ( Integer role ) {
-        return adminMapper.getByRole(role);
+        return baseMapper.selectList(Wrappers.<Admin>lambdaQuery().eq(Admin::getRole,role));
     }
 
 }
