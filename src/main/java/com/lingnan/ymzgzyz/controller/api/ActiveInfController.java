@@ -31,13 +31,13 @@ public class ActiveInfController {
     IActiveInfService iActiveInfService;
 
     @PostMapping("/test")
-    public String test(){
+    public String test ( ) {
         return "test";
     }
 
     //    返回全部活动详细信息
     @PostMapping("/list")
-    public List<ActiveInf> getActiveInfList(){
+    public List<ActiveInf> getActiveInfList ( ) {
         List<ActiveInf> list = new ArrayList<>();
         list = iActiveInfService.list();
         return list;
@@ -45,30 +45,26 @@ public class ActiveInfController {
 
     //    根据id查询，返回ActiveInf对象
     @PostMapping("/get-one")
-    public ActiveInf getActiveInfById( @RequestBody ActiveInf activeInf )
-    {
+    public ActiveInf getActiveInfById ( @RequestBody ActiveInf activeInf ) {
         Integer id = activeInf.getId();
         return iActiveInfService.getById(id);
     }
 
     //    根据id更新,返回boolean值
     @PostMapping("/update")
-    public boolean updateActiveInfById(@RequestBody ActiveInf activeInf)
-    {
+    public boolean updateActiveInfById ( @RequestBody ActiveInf activeInf ) {
         return iActiveInfService.saveOrUpdate(activeInf);
     }
 
     //    插入记录
     @PostMapping("/insert")
-    public boolean insertActiveInf(@RequestBody ActiveInf activeInf)
-    {
+    public boolean insertActiveInf ( @RequestBody ActiveInf activeInf ) {
         return iActiveInfService.save(activeInf);
     }
 
     //    删除记录
     @PostMapping("/delete")
-    public boolean deleteActiveInf(@RequestBody ActiveInf activeInf)
-    {
+    public boolean deleteActiveInf ( @RequestBody ActiveInf activeInf ) {
         Integer id = activeInf.getId();
         return iActiveInfService.removeById(id);
     }
@@ -79,44 +75,44 @@ public class ActiveInfController {
 
     //userRole
     @PostMapping("/getByUserRole")
-    public List<ActiveInf> getByUserRole (@RequestBody ActiveInf activeInf) {
+    public List<ActiveInf> getByUserRole ( @RequestBody ActiveInf activeInf ) {
         return iActiveInfService.getByUserRole(activeInf.getUserRole());
     }
 
     //userId
     @PostMapping("/getByUserId")
-    public List<ActiveInf> getByUserId (@RequestBody ActiveInf activeInf) {
+    public List<ActiveInf> getByUserId ( @RequestBody ActiveInf activeInf ) {
         return iActiveInfService.getByUserId(activeInf.getUserId());
     }
 
     //company
     @PostMapping("/getByCompany")
-    public List<ActiveInf> getByCompany (@RequestBody ActiveInf activeInf) {
+    public List<ActiveInf> getByCompany ( @RequestBody ActiveInf activeInf ) {
         return iActiveInfService.getByCompany(activeInf.getCompany());
     }
 
     //boss
     @PostMapping("/getByBoss")
-    public List<ActiveInf> getByBoss (@RequestBody ActiveInf activeInf) {
+    public List<ActiveInf> getByBoss ( @RequestBody ActiveInf activeInf ) {
         return iActiveInfService.getByBoss(activeInf.getBoss());
     }
 
     //states
     @PostMapping("/getByStates")
-    public List<ActiveInf> getByStates (@RequestBody ActiveInf activeInf) {
+    public List<ActiveInf> getByStates ( @RequestBody ActiveInf activeInf ) {
         return iActiveInfService.getByStates(activeInf.getStates());
     }
 
     //查询在某个时间发布的活动
     @PostMapping("/getByAttendTime")
-    public List<ActiveInf> getByAttendTime (@RequestBody ActiveInf activeInf) {
+    public List<ActiveInf> getByAttendTime ( @RequestBody ActiveInf activeInf ) {
         return iActiveInfService.getByAttendTime(activeInf.getAttendTime());
     }
 
 
     //查询某个时间截止报名的活动
     @PostMapping("/getByCloseTime")
-    public List<ActiveInf> getByCloseTime (@RequestBody ActiveInf activeInf) {
+    public List<ActiveInf> getByCloseTime ( @RequestBody ActiveInf activeInf ) {
         return iActiveInfService.getByCloseTime(activeInf.getCloseTime());
     }
 
@@ -124,12 +120,13 @@ public class ActiveInfController {
 
     /**
      * 判断获得的时间是否在attendTime和closeTime区间中
+     *
      * @param nowDate 前端不能返回Date类型的数据，所以用String代替，然后转格式
      * @return R
      * @throws ParseException
      */
     @PostMapping("/getByNotClose")
-    public R getByNotClose ( String nowDate) throws ParseException {
+    public R getByNotClose ( String nowDate ) throws ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date date = sdf.parse(nowDate);
         //获得所有数据，把数据其中的attendTime存在list中
@@ -141,14 +138,13 @@ public class ActiveInfController {
         //new一个用来存储id的list
         List<Integer> list = new ArrayList<>();
         //遍历aList
-        for (Date attendDate: aList) {
+        for (Date attendDate : aList) {
             //判断获得时间是否在attendTime之后
             if (date.after(attendDate) || date.equals(attendDate)) {
                 //遍历cList
-                for (Date closeDate: cList) {
+                for (Date closeDate : cList) {
                     //判断获得时间是否在closeTime之前
-                    if (date.before(closeDate) || date.equals(closeDate))
-                    {
+                    if (date.before(closeDate) || date.equals(closeDate)) {
                         //通过符合条件的closeTime获得id，存入list，每次遍历的list合并
                         list.addAll(iActiveInfService.getByCloseTime(closeDate).stream().map(ActiveInf::getId).collect(Collectors.toList()));
                     }
@@ -156,8 +152,7 @@ public class ActiveInfController {
             }
         }
         System.out.println(list);
-        if (list.isEmpty())
-        {
+        if (list.isEmpty()) {
             return R.message("无查询结果");
         }
         return R.success(iActiveInfService.listByIds(list));
@@ -165,7 +160,7 @@ public class ActiveInfController {
 
     //查询已截止报名的活动
     @PostMapping("/getByClosed")
-    public List<ActiveInf> getByClosed (String nowDate) throws ParseException {
+    public List<ActiveInf> getByClosed ( String nowDate ) throws ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date date = sdf.parse(nowDate);
         List<ActiveInf> list = new ArrayList<>();
@@ -175,7 +170,7 @@ public class ActiveInfController {
 
     //查询已截止的活动
     @PostMapping("/getByEnd")
-    public List<ActiveInf> getByEnd (String nowDate) throws ParseException {
+    public List<ActiveInf> getByEnd ( String nowDate ) throws ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date date = sdf.parse(nowDate);
         return iActiveInfService.getByAfterEndTime(date);
@@ -183,7 +178,7 @@ public class ActiveInfController {
 
     //查询未截止的活动
     @PostMapping("/getByNotEnd")
-    public R getByNotEnd ( String nowDate) throws ParseException {
+    public R getByNotEnd ( String nowDate ) throws ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date date = sdf.parse(nowDate);
         List<Date> sList = new ArrayList<>();
@@ -191,19 +186,17 @@ public class ActiveInfController {
         List<Date> eList = new ArrayList<>();
         eList = iActiveInfService.list().stream().map(ActiveInf::getEndTime).distinct().collect(Collectors.toList());
         List<Integer> list = new ArrayList<>();
-        for (Date startDate: sList) {
+        for (Date startDate : sList) {
             if (date.after(startDate) || date.equals(startDate)) {
-                for (Date endDate: eList) {
-                    if (date.before(endDate) || date.equals(endDate))
-                    {
+                for (Date endDate : eList) {
+                    if (date.before(endDate) || date.equals(endDate)) {
                         list.addAll(iActiveInfService.getByEndTime(endDate).stream().map(ActiveInf::getId).distinct().collect(Collectors.toList()));
                     }
                 }
             }
         }
         System.out.println(list.toString());
-        if (list.isEmpty())
-        {
+        if (list.isEmpty()) {
             return R.message("无查询结果");
         }
         return R.success(iActiveInfService.listByIds(list));
@@ -211,38 +204,55 @@ public class ActiveInfController {
 
     //根据标题模糊查询
     @PostMapping("/getByTitle")
-    public List<ActiveInf> getByTitle (@RequestBody ActiveInf activeInf) {
+    public List<ActiveInf> getByTitle ( @RequestBody ActiveInf activeInf ) {
         return iActiveInfService.getByTitle(activeInf.getTitle());
     }
 
     //content 模糊查询
     @PostMapping("/getByContent")
-    public List<ActiveInf> getByContent (@RequestBody ActiveInf activeInf) {
+    public List<ActiveInf> getByContent ( @RequestBody ActiveInf activeInf ) {
         return iActiveInfService.getByContent(activeInf.getContent());
     }
 
     //peopleNum
     @PostMapping("/getByPN")
-    public List<ActiveInf> getByPN (@RequestBody ActiveInf activeInf) {
+    public List<ActiveInf> getByPN ( @RequestBody ActiveInf activeInf ) {
         return iActiveInfService.getByPN(activeInf.getPeopleNum());
     }
 
     //peopleNum < num
     @PostMapping("/getByGreaterThanPN")
-    public List<ActiveInf> getByGreaterThanPN ( Integer num) {
+    public List<ActiveInf> getByGreaterThanPN ( Integer num ) {
         return iActiveInfService.getByGreaterThanPN(num);
     }
 
     //peopleNum > num
     @PostMapping("/getByLessThanPN")
-    public List<ActiveInf> getByLessThanPN ( Integer num) {
+    public List<ActiveInf> getByLessThanPN ( Integer num ) {
         return iActiveInfService.getByLessThanPN(num);
     }
 
     //peopleNum in [num1 , num2]
     @PostMapping("/getByExtent")
-    public List<ActiveInf> getByExtent (Integer num1 , Integer num2) {
-        return iActiveInfService.getByExtent(num1 , num2);
+    public List<ActiveInf> getByExtent ( Integer num1, Integer num2 ) {
+        return iActiveInfService.getByExtent(num1, num2);
     }
 
+    //批量删除
+    @PostMapping("/listDelete")
+    public R listDelete (@RequestBody List<Integer> idList ) {
+        if (iActiveInfService.removeByIds(idList)) {
+            return R.success(true);
+        }
+        return R.failed();
+    }
+
+    //批量插入
+    @PostMapping("/listInsert")
+    public R listInsert (@RequestBody List<ActiveInf> list ) {
+        if (iActiveInfService.saveBatch(list)) {
+            return R.success(true);
+        }
+        return R.failed();
+    }
 }

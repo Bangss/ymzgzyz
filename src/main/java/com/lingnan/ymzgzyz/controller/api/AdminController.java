@@ -1,6 +1,8 @@
 package com.lingnan.ymzgzyz.controller.api;
 
 
+import com.lingnan.ymzgzyz.model.R;
+import com.lingnan.ymzgzyz.model.entity.ActiveSign;
 import com.lingnan.ymzgzyz.model.entity.Admin;
 import com.lingnan.ymzgzyz.service.IAdminService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,5 +62,23 @@ public class AdminController {
     public boolean deleteAdmin (@RequestBody Admin admin) {
         Integer id = admin.getId();
         return iAdminService.removeById(id);
+    }
+
+    //批量删除
+    @PostMapping("/listDelete")
+    public R listDelete (@RequestBody List<Integer> idList ) {
+        if (iAdminService.removeByIds(idList)) {
+            return R.success(true);
+        }
+        return R.failed();
+    }
+
+    //批量插入
+    @PostMapping("/listInsert")
+    public R listInsert (@RequestBody List<Admin> list ) {
+        if (iAdminService.saveBatch(list)) {
+            return R.success(true);
+        }
+        return R.failed();
     }
 }

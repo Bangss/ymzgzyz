@@ -2,6 +2,8 @@ package com.lingnan.ymzgzyz.controller.api;
 
 
 
+import com.lingnan.ymzgzyz.model.R;
+import com.lingnan.ymzgzyz.model.entity.ActiveSign;
 import com.lingnan.ymzgzyz.model.entity.ArticleInf;
 import com.lingnan.ymzgzyz.service.IArticleInfService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -113,5 +115,23 @@ public class ArticleInfController {
     @PostMapping("/getContent")
     public List<ArticleInf> getByContent(@RequestParam String str) {
         return iArticleInfService.getByContent(str);
+    }
+
+    //批量删除
+    @PostMapping("/listDelete")
+    public R listDelete (@RequestBody List<Integer> idList ) {
+        if (iArticleInfService.removeByIds(idList)) {
+            return R.success(true);
+        }
+        return R.failed();
+    }
+
+    //批量插入
+    @PostMapping("/listInsert")
+    public R listInsert (@RequestBody List<ArticleInf> list ) {
+        if (iArticleInfService.saveBatch(list)) {
+            return R.success(true);
+        }
+        return R.failed();
     }
 }

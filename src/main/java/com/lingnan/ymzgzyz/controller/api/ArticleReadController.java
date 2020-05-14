@@ -2,6 +2,8 @@ package com.lingnan.ymzgzyz.controller.api;
 
 
 
+import com.lingnan.ymzgzyz.model.R;
+import com.lingnan.ymzgzyz.model.entity.ActiveSign;
 import com.lingnan.ymzgzyz.model.entity.ArticleRead;
 import com.lingnan.ymzgzyz.service.IArticleReadService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -92,4 +94,21 @@ public class ArticleReadController {
         return iArticleReadService.getByReadTime(time);
     }
 
+    //批量删除
+    @PostMapping("/listDelete")
+    public R listDelete (@RequestBody List<Integer> idList ) {
+        if (iArticleReadService.removeByIds(idList)) {
+            return R.success(true);
+        }
+        return R.failed();
+    }
+
+    //批量插入
+    @PostMapping("/listInsert")
+    public R listInsert (@RequestBody List<ArticleRead> list ) {
+        if (iArticleReadService.saveBatch(list)) {
+            return R.success(true);
+        }
+        return R.failed();
+    }
 }

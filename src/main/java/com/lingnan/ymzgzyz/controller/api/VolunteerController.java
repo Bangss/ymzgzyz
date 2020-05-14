@@ -1,6 +1,7 @@
 package com.lingnan.ymzgzyz.controller.api;
 
 
+import com.lingnan.ymzgzyz.model.R;
 import com.lingnan.ymzgzyz.model.entity.Volunteer;
 import com.lingnan.ymzgzyz.service.IVolunteerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -112,5 +113,23 @@ public class VolunteerController {
     @PostMapping("/getByVP")
     public List<Volunteer> getByVP (@RequestBody Volunteer volunteer) {
         return iVolunteerService.getByVP(volunteer.getViewPower());
+    }
+
+    //批量删除
+    @PostMapping("/listDelete")
+    public R listDelete (@RequestBody List<Integer> idList ) {
+        if (iVolunteerService.removeByIds(idList)) {
+            return R.success(true);
+        }
+        return R.failed();
+    }
+
+    //批量插入
+    @PostMapping("/listInsert")
+    public R listInsert (@RequestBody List<Volunteer> list ) {
+        if (iVolunteerService.saveBatch(list)) {
+            return R.success(true);
+        }
+        return R.failed();
     }
 }

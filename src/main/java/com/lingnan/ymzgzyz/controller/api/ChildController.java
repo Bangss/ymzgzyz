@@ -2,6 +2,8 @@ package com.lingnan.ymzgzyz.controller.api;
 
 
 
+import com.lingnan.ymzgzyz.model.R;
+import com.lingnan.ymzgzyz.model.entity.ActiveSign;
 import com.lingnan.ymzgzyz.model.entity.Child;
 import com.lingnan.ymzgzyz.service.IChildService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,6 +91,24 @@ public class ChildController {
     @PostMapping("/getByAddress")
     public List<Child> getByAddress (@RequestBody Child child) {
         return iChildService.getByAddress(child.getAddress());
+    }
+
+    //批量删除
+    @PostMapping("/listDelete")
+    public R listDelete (@RequestBody List<Integer> idList ) {
+        if (iChildService.removeByIds(idList)) {
+            return R.success(true);
+        }
+        return R.failed();
+    }
+
+    //批量插入
+    @PostMapping("/listInsert")
+    public R listInsert (@RequestBody List<Child> list ) {
+        if (iChildService.saveBatch(list)) {
+            return R.success(true);
+        }
+        return R.failed();
     }
 
 }

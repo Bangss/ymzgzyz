@@ -1,6 +1,7 @@
 package com.lingnan.ymzgzyz.controller.api;
 
 
+import com.lingnan.ymzgzyz.model.R;
 import com.lingnan.ymzgzyz.model.entity.ActiveInf;
 import com.lingnan.ymzgzyz.model.entity.ActiveSign;
 import com.lingnan.ymzgzyz.service.IActiveSignService;
@@ -82,5 +83,23 @@ public class ActiveSignController {
     @PostMapping("/getByTime")
     public List<ActiveSign> getByTime (String time) {
         return iActiveSignService.getByTime(time);
+    }
+
+    //批量删除
+    @PostMapping("/listDelete")
+    public R listDelete (@RequestBody List<Integer> idList ) {
+        if (iActiveSignService.removeByIds(idList)) {
+            return R.success(true);
+        }
+        return R.failed();
+    }
+
+    //批量插入
+    @PostMapping("/listInsert")
+    public R listInsert (@RequestBody List<ActiveSign > list ) {
+        if (iActiveSignService.saveBatch(list)) {
+            return R.success(true);
+        }
+        return R.failed();
     }
 }
