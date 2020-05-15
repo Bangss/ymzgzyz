@@ -1,6 +1,7 @@
 package com.lingnan.ymzgzyz.controller.api;
 
 
+import com.lingnan.ymzgzyz.annotation.LoginToken;
 import com.lingnan.ymzgzyz.model.R;
 import com.lingnan.ymzgzyz.model.entity.ActiveInf;
 import com.lingnan.ymzgzyz.service.IActiveInfService;
@@ -37,6 +38,7 @@ public class ActiveInfController {
 
     //    返回全部活动详细信息
     @PostMapping("/list")
+    @LoginToken
     public List<ActiveInf> getActiveInfList ( ) {
         List<ActiveInf> list = new ArrayList<>();
         list = iActiveInfService.list();
@@ -45,6 +47,7 @@ public class ActiveInfController {
 
     //    根据id查询，返回ActiveInf对象
     @PostMapping("/get-one")
+    @LoginToken
     public ActiveInf getActiveInfById ( @RequestBody ActiveInf activeInf ) {
         Integer id = activeInf.getId();
         return iActiveInfService.getById(id);
@@ -52,18 +55,21 @@ public class ActiveInfController {
 
     //    根据id更新,返回boolean值
     @PostMapping("/update")
+    @LoginToken
     public boolean updateActiveInfById ( @RequestBody ActiveInf activeInf ) {
         return iActiveInfService.saveOrUpdate(activeInf);
     }
 
     //    插入记录
     @PostMapping("/insert")
+    @LoginToken
     public boolean insertActiveInf ( @RequestBody ActiveInf activeInf ) {
         return iActiveInfService.save(activeInf);
     }
 
     //    删除记录
     @PostMapping("/delete")
+    @LoginToken
     public boolean deleteActiveInf ( @RequestBody ActiveInf activeInf ) {
         Integer id = activeInf.getId();
         return iActiveInfService.removeById(id);
@@ -75,36 +81,42 @@ public class ActiveInfController {
 
     //userRole
     @PostMapping("/getByUserRole")
+    @LoginToken
     public List<ActiveInf> getByUserRole ( @RequestBody ActiveInf activeInf ) {
         return iActiveInfService.getByUserRole(activeInf.getUserRole());
     }
 
     //userId
     @PostMapping("/getByUserId")
+    @LoginToken
     public List<ActiveInf> getByUserId ( @RequestBody ActiveInf activeInf ) {
         return iActiveInfService.getByUserId(activeInf.getUserId());
     }
 
     //company
     @PostMapping("/getByCompany")
+    @LoginToken
     public List<ActiveInf> getByCompany ( @RequestBody ActiveInf activeInf ) {
         return iActiveInfService.getByCompany(activeInf.getCompany());
     }
 
     //boss
     @PostMapping("/getByBoss")
+    @LoginToken
     public List<ActiveInf> getByBoss ( @RequestBody ActiveInf activeInf ) {
         return iActiveInfService.getByBoss(activeInf.getBoss());
     }
 
     //states
     @PostMapping("/getByStates")
+    @LoginToken
     public List<ActiveInf> getByStates ( @RequestBody ActiveInf activeInf ) {
         return iActiveInfService.getByStates(activeInf.getStates());
     }
 
     //查询在某个时间发布的活动
     @PostMapping("/getByAttendTime")
+    @LoginToken
     public List<ActiveInf> getByAttendTime ( @RequestBody ActiveInf activeInf ) {
         return iActiveInfService.getByAttendTime(activeInf.getAttendTime());
     }
@@ -112,6 +124,7 @@ public class ActiveInfController {
 
     //查询某个时间截止报名的活动
     @PostMapping("/getByCloseTime")
+    @LoginToken
     public List<ActiveInf> getByCloseTime ( @RequestBody ActiveInf activeInf ) {
         return iActiveInfService.getByCloseTime(activeInf.getCloseTime());
     }
@@ -126,6 +139,7 @@ public class ActiveInfController {
      * @throws ParseException
      */
     @PostMapping("/getByNotClose")
+    @LoginToken
     public R getByNotClose ( String nowDate ) throws ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date date = sdf.parse(nowDate);
@@ -160,6 +174,7 @@ public class ActiveInfController {
 
     //查询已截止报名的活动
     @PostMapping("/getByClosed")
+    @LoginToken
     public List<ActiveInf> getByClosed ( String nowDate ) throws ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date date = sdf.parse(nowDate);
@@ -170,6 +185,7 @@ public class ActiveInfController {
 
     //查询已截止的活动
     @PostMapping("/getByEnd")
+    @LoginToken
     public List<ActiveInf> getByEnd ( String nowDate ) throws ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date date = sdf.parse(nowDate);
@@ -178,6 +194,7 @@ public class ActiveInfController {
 
     //查询未截止的活动
     @PostMapping("/getByNotEnd")
+    @LoginToken
     public R getByNotEnd ( String nowDate ) throws ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date date = sdf.parse(nowDate);
@@ -204,42 +221,49 @@ public class ActiveInfController {
 
     //根据标题模糊查询
     @PostMapping("/getByTitle")
+    @LoginToken
     public List<ActiveInf> getByTitle ( @RequestBody ActiveInf activeInf ) {
         return iActiveInfService.getByTitle(activeInf.getTitle());
     }
 
     //content 模糊查询
     @PostMapping("/getByContent")
+    @LoginToken
     public List<ActiveInf> getByContent ( @RequestBody ActiveInf activeInf ) {
         return iActiveInfService.getByContent(activeInf.getContent());
     }
 
     //peopleNum
     @PostMapping("/getByPN")
+    @LoginToken
     public List<ActiveInf> getByPN ( @RequestBody ActiveInf activeInf ) {
         return iActiveInfService.getByPN(activeInf.getPeopleNum());
     }
 
     //peopleNum < num
     @PostMapping("/getByGreaterThanPN")
+    @LoginToken
     public List<ActiveInf> getByGreaterThanPN ( Integer num ) {
         return iActiveInfService.getByGreaterThanPN(num);
     }
 
     //peopleNum > num
     @PostMapping("/getByLessThanPN")
+    @LoginToken
     public List<ActiveInf> getByLessThanPN ( Integer num ) {
         return iActiveInfService.getByLessThanPN(num);
     }
 
     //peopleNum in [num1 , num2]
     @PostMapping("/getByExtent")
+    @LoginToken
     public List<ActiveInf> getByExtent ( Integer num1, Integer num2 ) {
         return iActiveInfService.getByExtent(num1, num2);
     }
 
     //批量删除
     @PostMapping("/listDelete")
+    @LoginToken
     public R listDelete (@RequestBody List<Integer> idList ) {
         if (iActiveInfService.removeByIds(idList)) {
             return R.success(true);
@@ -249,6 +273,7 @@ public class ActiveInfController {
 
     //批量插入
     @PostMapping("/listInsert")
+    @LoginToken
     public R listInsert (@RequestBody List<ActiveInf> list ) {
         if (iActiveInfService.saveBatch(list)) {
             return R.success(true);
