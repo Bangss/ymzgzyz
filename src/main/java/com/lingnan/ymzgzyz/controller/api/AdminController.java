@@ -2,6 +2,7 @@ package com.lingnan.ymzgzyz.controller.api;
 
 
 import com.lingnan.ymzgzyz.annotation.LoginToken;
+import com.lingnan.ymzgzyz.annotation.PassToken;
 import com.lingnan.ymzgzyz.model.R;
 import com.lingnan.ymzgzyz.model.entity.ActiveSign;
 import com.lingnan.ymzgzyz.model.entity.Admin;
@@ -58,7 +59,7 @@ public class AdminController {
 
     //插入，返回boolean值
     @PostMapping("/insert")
-    @LoginToken
+    @PassToken
     public boolean insertAdmin (@RequestBody Admin admin) {
         return iAdminService.saveOrUpdate(admin);
     }

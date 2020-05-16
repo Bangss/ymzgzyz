@@ -2,6 +2,7 @@ package com.lingnan.ymzgzyz.controller.api;
 
 
 import com.lingnan.ymzgzyz.annotation.LoginToken;
+import com.lingnan.ymzgzyz.annotation.PassToken;
 import com.lingnan.ymzgzyz.model.R;
 import com.lingnan.ymzgzyz.model.entity.Volunteer;
 import com.lingnan.ymzgzyz.service.IVolunteerService;
@@ -56,7 +57,7 @@ public class VolunteerController {
 
     //插入，返回boolean值
     @PostMapping("/insert")
-    @LoginToken
+    @PassToken
     public boolean insertVolunteer (@RequestBody Volunteer volunteer) {
         return iVolunteerService.save(volunteer);
     }
