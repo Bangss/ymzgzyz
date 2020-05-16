@@ -1,5 +1,6 @@
 package com.lingnan.ymzgzyz.service;
 
+import com.lingnan.ymzgzyz.model.entity.Child;
 import com.lingnan.ymzgzyz.model.entity.Volunteer;
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.apache.ibatis.annotations.Select;
@@ -35,4 +36,9 @@ public interface IVolunteerService extends IService<Volunteer> {
 
     List<Volunteer> getByVP (Integer vp);
 
+    Volunteer getByEmail ( String email);
+
+    Volunteer getByMobile (String mobile);
+
+    boolean updatePassword(Integer id , String password);
 }

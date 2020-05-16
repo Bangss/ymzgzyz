@@ -5,9 +5,6 @@ import com.lingnan.ymzgzyz.model.entity.Child;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 
-
-
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -29,4 +26,10 @@ public interface IChildService extends IService<Child> {
     List<Child> getByPlace (String place);
 
     List<Child> getByAddress (String address);
+
+    Child getByEmail (String email);
+
+    Child getByMobile (String mobile);
+
+    boolean updatePassword ( Integer id , String password);
 }

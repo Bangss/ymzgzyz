@@ -4,6 +4,7 @@ import com.lingnan.ymzgzyz.model.entity.Child;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 /**
  * <p>
@@ -15,5 +16,6 @@ import org.apache.ibatis.annotations.Select;
  */
 
 public interface ChildMapper extends BaseMapper<Child> {
-
+    @Update("update child set password = ${password} where id = ${id}")
+    boolean updatePassword ( Integer id , String password);
 }

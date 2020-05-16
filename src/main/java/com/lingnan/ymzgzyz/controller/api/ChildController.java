@@ -6,15 +6,13 @@ import com.lingnan.ymzgzyz.annotation.LoginToken;
 import com.lingnan.ymzgzyz.annotation.PassToken;
 import com.lingnan.ymzgzyz.model.R;
 import com.lingnan.ymzgzyz.model.entity.ActiveSign;
+import com.lingnan.ymzgzyz.model.entity.Admin;
 import com.lingnan.ymzgzyz.model.entity.Child;
 import com.lingnan.ymzgzyz.service.IChildService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.bind.annotation.RestController;
-
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -124,4 +122,48 @@ public class ChildController {
         return R.failed();
     }
 
+    //忘记密码 邮箱
+    @PostMapping("/updatePassByEmail")
+    @PassToken
+    public R updatePasswordByEmail(@RequestParam String email , HttpSession session) {
+        Child child = iChildService.getByEmail(email);
+        if (child == null) {
+            return R.message("该邮箱的用户不存在");
+        }
+        else {
+            session.setAttribute("id" , child.getId());
+            return R.success(child);
+        }
+    }
+
+    //忘记密码 手机
+    @PostMapping("/updatePassByMobile")
+    @PassToken
+    public R updatePasswordByMobile(@RequestParam String mobile , HttpSession session) {
+        Child child = iChildService.getByMobile(mobile);
+        if (child == null) {
+            return R.message("该邮箱的用户不存在");
+        }
+        else {
+            session.setAttribute("id" , child.getId());
+            return R.success(child);
+        }
+    }
+
+    //修改密码
+    @PostMapping("/updatePassword")
+    @PassToken
+    public R updatePassword(@RequestParam String password , @RequestParam String confirmPW , HttpSession session) {
+        if (!password.equals(confirmPW)) {
+            return R.message("两次密码不一致");
+        }
+        Integer id = (Integer) session.getAttribute("id");
+        boolean flag = iChildService.updatePassword(id , password);
+        if (flag) {
+            return R.success();
+        }
+        else {
+            return R.failed();
+        }
+    }
 }

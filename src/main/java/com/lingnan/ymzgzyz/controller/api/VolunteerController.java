@@ -5,14 +5,13 @@ import com.lingnan.ymzgzyz.annotation.LoginToken;
 import com.lingnan.ymzgzyz.annotation.PassToken;
 import com.lingnan.ymzgzyz.model.R;
 import com.lingnan.ymzgzyz.model.entity.Volunteer;
+
 import com.lingnan.ymzgzyz.service.IVolunteerService;
+import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.bind.annotation.RestController;
-
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -148,5 +147,50 @@ public class VolunteerController {
             return R.success(true);
         }
         return R.failed();
+    }
+
+    //忘记密码 邮箱
+    @PostMapping("/updatePassByEmail")
+    @PassToken
+    public R updatePasswordByEmail( @RequestParam String email , HttpSession session ) {
+        Volunteer volunteer = iVolunteerService.getByEmail(email);
+        if (volunteer == null) {
+            return R.message("该邮箱的用户不存在");
+        }
+        else {
+            session.setAttribute("id" , volunteer.getId());
+            return R.success(volunteer);
+        }
+    }
+
+    //忘记密码 手机
+    @PostMapping("/updatePassByMobile")
+    @PassToken
+    public R updatePasswordByMobile(@RequestParam String mobile , HttpSession session) {
+        Volunteer volunteer = iVolunteerService.getByMobile(mobile);
+        if (volunteer == null) {
+            return R.message("该邮箱的用户不存在");
+        }
+        else {
+            session.setAttribute("id" , volunteer.getId());
+            return R.success(volunteer);
+        }
+    }
+
+    //修改密码
+    @PostMapping("/updatePassword")
+    @PassToken
+    public R updatePassword(@RequestParam String password , @RequestParam String confirmPW , HttpSession session) {
+        if (!password.equals(confirmPW)) {
+            return R.message("两次密码不一致");
+        }
+        Integer id = (Integer) session.getAttribute("id");
+        boolean flag = iVolunteerService.updatePassword( id , password );
+        if (flag) {
+            return R.success();
+        }
+        else {
+            return R.failed();
+        }
     }
 }

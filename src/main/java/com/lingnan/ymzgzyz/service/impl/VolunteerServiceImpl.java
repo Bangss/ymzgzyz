@@ -22,7 +22,8 @@ import java.util.List;
 @Service
 public class VolunteerServiceImpl extends ServiceImpl<VolunteerMapper, Volunteer> implements IVolunteerService {
 
-
+    @Autowired
+    private VolunteerMapper volunteerMapper;
 
     @Override
     public Volunteer getByName ( String name ) {
@@ -67,5 +68,20 @@ public class VolunteerServiceImpl extends ServiceImpl<VolunteerMapper, Volunteer
     @Override
     public List<Volunteer> getByVP ( Integer vp ) {
         return baseMapper.selectList(Wrappers.<Volunteer>lambdaQuery().eq(Volunteer::getViewPower,vp));
+    }
+
+    @Override
+    public Volunteer getByEmail ( String email ) {
+        return baseMapper.selectOne(Wrappers.<Volunteer>lambdaQuery().eq(Volunteer::getEmail,email));
+    }
+
+    @Override
+    public Volunteer getByMobile ( String mobile ) {
+        return baseMapper.selectOne(Wrappers.<Volunteer>lambdaQuery().eq(Volunteer::getMobile,mobile));
+    }
+
+    @Override
+    public boolean updatePassword (Integer id , String password ) {
+        return volunteerMapper.updatePassword(id , password);
     }
 }
